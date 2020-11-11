@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+    <record id="view_bank_statement_form" model="ir.ui.view">
+        <field name="model">account.bank.statement</field>
+        <field name="name">account.bank.statement.form</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="currency_id" invisible="1"/>
+                <field name="currency_rate" class="oe_inline" attrs="{'invisible': [('currency_id', '=', %(base.ARS)d)]}"/>
+                <button string="⇒ Set Rate" type="object"  name="set_rate"  class="oe_link oe_edit_only" attrs="{'invisible': [('currency_id', '=', %(base.ARS)d)]}"/>
+            </xpath>
+            <!-- TODO ocultar el rate en la linea si la la moneda es pesos argentinos -->
+            <xpath expr="//notebook/page/field/tree/field[@name='amount']" position="before" >
+                <field name="currency_rate"/>
+            </xpath>
+        </field>
+    </record>
+
+
+  </data>
+</odoo>
