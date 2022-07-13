@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+    <record id="account_invoice_form_exchange_block" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="name">account_invoice_form_exchange_block</field>
+        <field name="inherit_id" ref="manual_currency_exchange_rate.account_invoice_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="manual_currency_rate_visible" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='set_rate']" position="replace">
+                <button string="⇒ Manual Rate" type="object"  name="set_rate"  class="oe_link oe_edit_only" attrs="{'invisible': ['|',('state','not in',('draft',)), ('manual_currency_rate_visible', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_invoice_form2_block" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="name">account_invoice_form2_block</field>
+        <field name="inherit_id" ref="manual_currency_exchange_rate.account_invoice_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_rate']" position="replace">
+                <field name="currency_rate" readonly="True" attrs="{'invisible': [('manual_currency_rate_visible', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+
+  </data>
+</odoo>
