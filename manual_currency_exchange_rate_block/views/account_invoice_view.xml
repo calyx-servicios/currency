@@ -14,6 +14,19 @@
         </field>
     </record>
 
+    <record id="view_invoice_form_block" model="ir.ui.view">
+            <field name="name">view_invoice_form_block</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_document.view_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='computed_currency_rate']" position="replace">
+                    <field name="computed_currency_rate" attrs="{'invisible': ['|',('state','not in',('draft',)), ('manual_currency_rate_visible', '=', False)]}"/>
+                </xpath>
+            </field>
+
+    </record>
+
+
     <record id="account_invoice_form2_block" model="ir.ui.view">
         <field name="model">account.invoice</field>
         <field name="name">account_invoice_form2_block</field>
