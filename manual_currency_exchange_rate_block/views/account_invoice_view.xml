@@ -25,6 +25,26 @@
         </field>
     </record>
 
+    <record id="invoice_supplier_form_block" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="name">invoice_supplier_form_block</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="manual_currency_rate_visible" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='set_rate']" position="replace">
+                <button string="⇒ Manual Rate" type="object"  name="set_rate"  class="oe_link oe_edit_only" attrs="{'invisible': ['|',('state','not in',('draft',)), ('manual_currency_rate_visible', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='currency_rate']" position="replace">
+                <field name="currency_rate" readonly="True" attrs="{'invisible': [('manual_currency_rate_visible', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
 
   </data>
 </odoo>
